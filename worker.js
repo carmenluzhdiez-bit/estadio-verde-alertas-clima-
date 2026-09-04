@@ -217,6 +217,7 @@ async function getGoogleAccessToken(env, scopes) {
 
 async function importPrivateKey(pem) {
   const pemContents = pem
+    .replace(/\\n/g, "\n") // por si se pegó con \n literales (texto) en vez de saltos de línea reales
     .replace("-----BEGIN PRIVATE KEY-----", "")
     .replace("-----END PRIVATE KEY-----", "")
     .replace(/\s/g, "");
