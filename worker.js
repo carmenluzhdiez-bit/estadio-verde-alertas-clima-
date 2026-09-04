@@ -25,10 +25,17 @@ export default {
     // Endpoint manual de prueba: visitar la URL del Worker con ?test=1
     const url = new URL(request.url);
     if (url.searchParams.get("test") === "1") {
-      const resultado = await chequearClima(env, true);
-      return new Response(JSON.stringify(resultado, null, 2), {
-        headers: { "Content-Type": "application/json" },
-      });
+      try {
+        const resultado = await chequearClima(env, true);
+        return new Response(JSON.stringify(resultado, null, 2), {
+          headers: { "Content-Type": "application/json" },
+        });
+      } catch (e) {
+        return new Response(JSON.stringify({ ok: false, error: String(e), stack: e.stack }, null, 2), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
     }
     return new Response("Worker de alertas de clima — Estadio Español. Activo.", { status: 200 });
   },
