@@ -1,0 +1,9 @@
+name = "estadio-verde-alertas-clima"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Corre cada hora, todos los días. El propio Worker filtra internamente si
+# está fuera del horario laboral (07:00–19:00 hora Chile) — así no hay que
+# calcular equivalencias UTC ni preocuparse por el horario de verano.
+[triggers]
+crons = ["0 * * * *"]
